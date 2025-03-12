@@ -1,28 +1,65 @@
 package com.example.mikocompany.screens
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.navigation.NavHostController
+import com.example.mikocompany.MikoButton
+import com.example.mikocompany.MikoName
+import com.example.mikocompany.MikoReadOnlyTextField
+import com.example.mikocompany.MikoText
+import com.example.mikocompany.MikoTextButton
+import com.example.mikocompany.MikoTextField
+import com.example.mikocompany.MikoTitle
+import com.example.mikocompany.ui.theme.backgroundP
+import com.example.mikocompany.ui.theme.backgroundS
 
 @Composable
 fun Start(
     navController: NavHostController,
     start : MutableState<Boolean>
 ){
+
+    val test = remember { mutableStateOf(TextFieldValue("test")) }
+
     Scaffold(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxSize(),
+        containerColor = Color(backgroundP.value)
     ) { innerPadding ->
         Column(
             modifier = Modifier
-                .padding(innerPadding)
+                .padding(innerPadding),
+            verticalArrangement = Arrangement.SpaceAround
         ) {
+            MikoTitle("text")
 
+            MikoText("text text text")
+
+            MikoTextField(test.value)
+
+            MikoReadOnlyTextField(test.value)
+
+            MikoButton(
+                onClick = {},
+                text = "хуй",
+                color = backgroundS
+            )
+
+            MikoTextButton(
+                onClick = {}
+            )
+
+            MikoName()
         }
     }
 }
