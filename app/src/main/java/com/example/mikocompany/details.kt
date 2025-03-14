@@ -4,52 +4,98 @@ import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import com.example.mikocompany.ui.theme.backgroundS
 import com.example.mikocompany.ui.theme.containerP
 import com.example.mikocompany.ui.theme.containerS
+import com.example.mikocompany.ui.theme.lightContainerS
 import com.example.mikocompany.ui.theme.primary
 import com.example.mikocompany.ui.theme.secondary
 import com.example.mikocompany.ui.theme.zk
 
-// for accent block backing
-@Composable
-fun MikoBox(
-    width : Int,
-    height : Int
-){
-
-}
-
 // for editable fields
 @Composable
 fun MikoTextField(
-    value : TextFieldValue
+    value : MutableState<TextFieldValue>,
+    placeHol : String
 ){
-
+    OutlinedTextField(
+        value = value.value,
+        onValueChange = {
+            new -> value.value = new
+        },
+        modifier = Modifier,
+        enabled = true,
+        readOnly = false,
+        singleLine = true,
+        textStyle = TextStyle(
+            fontFamily = zk,
+            fontSize = 24.sp,
+            color = backgroundS
+        ),
+        placeholder = { Text(placeHol,
+            color = backgroundS,
+            fontFamily = zk,
+            fontSize = 24.sp,) },
+        colors = TextFieldDefaults.colors(
+            cursorColor = secondary,
+            focusedContainerColor = containerS,
+            unfocusedContainerColor = lightContainerS,
+            focusedIndicatorColor = backgroundS,
+            unfocusedIndicatorColor = secondary
+        )
+    )
 }
 
 // for non-editable fields
 @Composable
 fun MikoReadOnlyTextField(
-    value : TextFieldValue
+    value : MutableState<TextFieldValue>
 ){
-
+    OutlinedTextField(
+        value = value.value,
+        onValueChange = {},
+        modifier = Modifier,
+        enabled = true,
+        readOnly = true,
+        singleLine = true,
+        textStyle = TextStyle(
+            fontFamily = zk,
+            fontSize = 24.sp,
+            color = backgroundS
+        ),
+        colors = TextFieldDefaults.colors(
+            cursorColor = secondary,
+            focusedContainerColor = containerS,
+            unfocusedContainerColor = containerS,
+            focusedIndicatorColor = backgroundS,
+            unfocusedIndicatorColor = backgroundS
+        )
+    )
 }
 
 // for titles
@@ -134,17 +180,52 @@ fun MikoButton(
 // for hidden buttons
 @Composable
 fun MikoTextButton(
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    text: String,
+    color: Color
 ){
-
+    TextButton(
+        onClick = onClick,
+        modifier = Modifier
+    ) {
+        Text(
+            text = text,
+            modifier = Modifier,
+            fontFamily = zk,
+            fontSize = 25.sp,
+            color = color
+        )
+    }
 }
 
 // for the introductory form
 @Composable
 fun MikoInfoDialog(
-
+    openDialog : MutableState<Boolean>,
+    width : Int,
+    height : Int,
+//    vmstate : State<String>
 ){
-
+    Dialog(
+        onDismissRequest = {
+            openDialog.value = false
+        }
+    ){
+        Card(
+            modifier = Modifier
+                .size(width = width.dp, height = height.dp),
+            colors = CardDefaults.cardColors()
+        ) {
+            Text(
+                text = "сюда стейт",
+                modifier = Modifier,
+                color = secondary,
+                fontFamily = zk,
+                fontSize = 25.sp,
+                softWrap = true
+            )
+        }
+    }
 }
 
 // for the data interaction form

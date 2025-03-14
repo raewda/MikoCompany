@@ -14,7 +14,7 @@ val lightContainerS = Color(0xFFae8883)
 val backgroundP = Color(0xFFffd2cc)
 val backgroundS = Color(0xFFfed2cd)
 
-val new = Color(0xFF5f4f4d)
+val nColor = Color(0xFF5f4f4d)
 
 
 
