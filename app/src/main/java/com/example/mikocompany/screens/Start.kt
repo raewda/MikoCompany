@@ -1,16 +1,13 @@
 package com.example.mikocompany.screens
 
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.LocalActivity
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -27,6 +24,8 @@ import com.example.mikocompany.MikoTextField
 import com.example.mikocompany.MikoTitle
 import com.example.mikocompany.ui.theme.backgroundP
 import com.example.mikocompany.ui.theme.backgroundS
+import com.example.mikocompany.ui.theme.containerP
+import com.example.mikocompany.ui.theme.containerS
 import com.example.mikocompany.ui.theme.secondary
 
 @Composable
@@ -68,7 +67,9 @@ fun Start(
             MikoReadOnlyTextField(test2)
 
             MikoButton(
-                onClick = {},
+                onClick = {
+                    openDialog.value = true
+                },
                 text = "хуй",
                 color = backgroundS
             )
@@ -79,12 +80,16 @@ fun Start(
                 color = secondary
             )
 
-            MikoInfoDialog(
-                openDialog = openDialog,
-                width = 300,
-                height = 300,
+            if (openDialog.value){
+                MikoInfoDialog(
+                    openDialog = openDialog,
+                    width = 300,
+                    height = 300,
+                    color = containerS,
+                    textColor = backgroundS
 //                vmstate = vmstate
-            )
+                )
+            }
 
             MikoName()
         }

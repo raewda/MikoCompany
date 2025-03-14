@@ -1,10 +1,12 @@
 package com.example.mikocompany
 
 import android.util.Log
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -204,6 +206,8 @@ fun MikoInfoDialog(
     openDialog : MutableState<Boolean>,
     width : Int,
     height : Int,
+    color: Color,
+    textColor: Color
 //    vmstate : State<String>
 ){
     Dialog(
@@ -214,16 +218,47 @@ fun MikoInfoDialog(
         Card(
             modifier = Modifier
                 .size(width = width.dp, height = height.dp),
-            colors = CardDefaults.cardColors()
+            colors = CardDefaults.cardColors(color)
         ) {
             Text(
                 text = "сюда стейт",
-                modifier = Modifier,
-                color = secondary,
+                modifier = Modifier
+                    .padding(horizontal = 15.dp),
+                color = textColor,
                 fontFamily = zk,
                 fontSize = 25.sp,
                 softWrap = true
             )
+
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 15.dp)
+                    .padding(vertical = 7.dp),
+                horizontalAlignment = Alignment.End
+            ) {
+                Button(
+                    onClick = {
+                        openDialog.value = false
+                    },
+                    modifier = Modifier
+                        .padding(vertical = 5.dp)
+                        .padding(horizontal = 15.dp),
+                    colors = ButtonDefaults.buttonColors(Color.Transparent),
+                    shape = CircleShape,
+                    border = BorderStroke(
+                        width = 2.dp,
+                        color = textColor)
+                ) {
+                    Text(
+                        text = "ок",
+                        modifier = Modifier,
+                        color = textColor,
+                        fontFamily = zk,
+                        fontSize = 25.sp
+                    )
+                }
+            }
         }
     }
 }
