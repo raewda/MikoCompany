@@ -106,6 +106,41 @@ fun MikoReadOnlyTextField(
     )
 }
 
+// for large text
+@Composable
+fun MikoLargeTextField(
+    value : MutableState<TextFieldValue>,
+    placeHol : String
+){
+    OutlinedTextField(
+        value = value.value,
+        onValueChange = {
+                new -> value.value = new
+        },
+        modifier = Modifier,
+        enabled = true,
+        readOnly = false,
+        singleLine = false,
+        textStyle = TextStyle(
+            fontFamily = zk,
+            fontSize = 24.sp,
+            color = backgroundS
+        ),
+        placeholder = { Text(placeHol,
+            color = backgroundS,
+            fontFamily = zk,
+            fontSize = 24.sp,) },
+        colors = TextFieldDefaults.colors(
+            cursorColor = secondary,
+            focusedContainerColor = containerS,
+            unfocusedContainerColor = lightContainerS,
+            focusedIndicatorColor = backgroundS,
+            unfocusedIndicatorColor = secondary
+        ),
+        shape = RoundedCornerShape(12.dp)
+    )
+}
+
 // for titles
 @Composable
 fun MikoTitle(
@@ -168,7 +203,8 @@ fun MikoButton(
         if (icon != null && text == null){
             Icon(
                 imageVector = icon,
-                contentDescription = "icon in button"
+                contentDescription = "icon in button",
+                tint = color
             )
         }
         else if (icon == null && text != null){
