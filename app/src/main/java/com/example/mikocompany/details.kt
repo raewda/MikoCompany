@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -23,8 +22,6 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -155,14 +152,15 @@ fun MikoButton(
     onClick: () -> Unit,
     icon : ImageVector? = null,
     text : String? = null,
-    color : Color
+    color : Color,
+    colortext : Color,
 ){
     Button(
         onClick = onClick,
         modifier = Modifier
             .padding(vertical = 5.dp)
             .padding(horizontal = 15.dp),
-        colors = ButtonDefaults.buttonColors(containerS)
+        colors = ButtonDefaults.buttonColors(color)
     ) {
         if (icon != null && text == null){
             Icon(
@@ -174,7 +172,7 @@ fun MikoButton(
             Text(
                 text = text,
                 modifier = Modifier,
-                color = color,
+                color = colortext,
                 fontFamily = zk,
                 fontSize = 25.sp
             )
@@ -304,6 +302,7 @@ fun MikoDropDownMenu(
 ){
     Box(
         modifier = Modifier
+            .padding(horizontal = 15.dp)
     ){
         Button(
             modifier = Modifier,
@@ -317,7 +316,7 @@ fun MikoDropDownMenu(
                 text = textButton,
                 fontFamily = zk,
                 color = backgroundS,
-                fontSize = 22.sp
+                fontSize = 25.sp
             )
         }
 
@@ -334,7 +333,7 @@ fun MikoDropDownMenu(
                             text = ddmlist.get(index = i),
                             fontFamily = zk,
                             color = backgroundS,
-                            fontSize = 22.sp
+                            fontSize = 25.sp
                         ) },
                         onClick = {
                             pick.value = ddmlist.get(index = i)

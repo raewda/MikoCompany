@@ -1,44 +1,97 @@
 package com.example.mikocompany.screens
 
 
-import android.widget.ProgressBar
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.mikocompany.MikoButton
-import com.example.mikocompany.MikoDialog
-import com.example.mikocompany.MikoDropDownMenu
-import com.example.mikocompany.MikoInfoDialog
 import com.example.mikocompany.MikoName
-import com.example.mikocompany.MikoReadOnlyTextField
-import com.example.mikocompany.MikoText
-import com.example.mikocompany.MikoTextButton
-import com.example.mikocompany.MikoTextField
-import com.example.mikocompany.MikoTitle
+import com.example.mikocompany.R
 import com.example.mikocompany.ui.theme.backgroundP
-import com.example.mikocompany.ui.theme.backgroundS
 import com.example.mikocompany.ui.theme.containerP
-import com.example.mikocompany.ui.theme.containerS
-import com.example.mikocompany.ui.theme.secondary
+import com.example.mikocompany.ui.theme.primary
+import com.example.mikocompany.ui.theme.zk
 
 @Composable
 fun Start(
     navController: NavHostController,
     start : MutableState<Boolean>
 ){
+    Scaffold(
+        modifier = Modifier
+            .fillMaxSize(),
+        containerColor = backgroundP
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .padding(innerPadding)
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.SpaceAround
+        ) {
+            Image(
+                painter = painterResource(R.drawable.logo),
+                contentDescription = "logo",
+                modifier = Modifier
+                    .size(300.dp)
+            )
+            Text(
+                text = "RAEWDA PRODUCTION",
+                modifier = Modifier,
+                fontSize = 25.sp,
+                color = primary,
+                fontFamily = zk
+            )
 
-    //// создание поключения, получение VM
+            MikoButton(
+                onClick = {
+                    navController.navigate("authorization")
+                },
+                color = containerP,
+                text = "авторизация",
+                colortext = backgroundP
+            )
+
+            MikoButton(
+                onClick = {
+                    navController.navigate("registration")
+                },
+                color = containerP,
+                text = "регистрация",
+                colortext = backgroundP
+            )
+
+            MikoButton(
+                onClick = {
+                    navController.navigate("applicationInfo")
+                },
+                color = containerP,
+                text = "о приложении",
+                colortext = backgroundP
+            )
+
+            MikoName()
+        }
+
+    }
+}
+
+
+
+//// создание поключения, получение VM
 //val ViewModel = ViewModelProvider(LocalActivity.current as ComponentActivity)[StartViewModel::class.java]
 //// получение стейта
 //val vmstate = ViewModel.company_description.collectAsState()
@@ -47,78 +100,3 @@ fun Start(
 //    // отображение изменений с VM
 //    ViewModel.LoadCompanyDescription()
 //}
-
-    val test = remember { mutableStateOf(TextFieldValue("")) }
-    val test2 = remember { mutableStateOf(TextFieldValue("test2")) }
-    val openDialog = remember { mutableStateOf(false) }
-    val openMenu = remember { mutableStateOf(false) }
-    val test3 = remember { mutableStateOf("") }
-
-    Scaffold(
-        modifier = Modifier
-            .fillMaxSize(),
-        containerColor = Color(backgroundP.value)
-    ) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .padding(innerPadding),
-            verticalArrangement = Arrangement.SpaceAround
-        ) {
-            MikoTitle("text")
-
-            MikoText("text text text")
-
-            MikoTextField(test, "hui")
-
-            MikoReadOnlyTextField(test2)
-
-            MikoButton(
-                onClick = {
-                    openDialog.value = true
-                },
-                text = "хуй",
-                color = backgroundS
-            )
-            
-            MikoTextButton(
-                onClick = {},
-                text = "jopa",
-                color = secondary
-            )
-
-            if (openDialog.value){
-//                MikoInfoDialog(
-//                    openDialog = openDialog,
-//                    width = 300,
-//                    height = 300,
-//                    color = containerS,
-//                    textColor = backgroundS
-////                vmstate = vmstate
-//                )
-
-                MikoDialog(
-                    openDialog = openDialog,
-                    width = 300,
-                    height = 300,
-                    color = containerS
-                ) {
-                    Text(
-                        text = "hfjfhf"
-                    )
-                }
-            }
-
-            MikoDropDownMenu(
-                ddmlist = listOf(
-                    "one", "two"
-                ),
-                openMenu = openMenu,
-                textButton = "clac",
-                pick = test3
-            )
-
-            MikoName()
-
-        }
-    }
-}

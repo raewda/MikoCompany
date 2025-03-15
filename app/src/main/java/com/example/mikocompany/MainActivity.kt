@@ -10,10 +10,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.mikocompany.screens.Acceptance
+import com.example.mikocompany.screens.ApplicationInfo
+import com.example.mikocompany.screens.Authorization
 import com.example.mikocompany.screens.Category
 import com.example.mikocompany.screens.Offer
 import com.example.mikocompany.screens.Order
 import com.example.mikocompany.screens.Profile
+import com.example.mikocompany.screens.Registration
 import com.example.mikocompany.screens.Start
 import com.example.mikocompany.screens.Statistic
 import com.example.mikocompany.screens.Warehouse
@@ -35,6 +38,9 @@ class MainActivity : ComponentActivity() {
                 val offer = remember{ mutableStateOf(false) }
                 val order = remember{ mutableStateOf(false) }
                 val statistic = remember{ mutableStateOf(false) }
+                val authorization = remember{ mutableStateOf(false) }
+                val registration = remember{ mutableStateOf(false) }
+                val applicationInfo = remember{ mutableStateOf(false) }
 
                 NavHost(
                     navController = navController,
@@ -86,6 +92,24 @@ class MainActivity : ComponentActivity() {
                         Statistic(
                             navController,
                             statistic = statistic
+                        )
+                    }
+                    composable("authorization") {
+                        Authorization(
+                            navController,
+                            authorization = authorization
+                        )
+                    }
+                    composable("registration") {
+                        Registration(
+                            navController,
+                            registration = registration
+                        )
+                    }
+                    composable("applicationInfo") {
+                        ApplicationInfo(
+                            navController,
+                            applicationInfo = applicationInfo
                         )
                     }
                 }
