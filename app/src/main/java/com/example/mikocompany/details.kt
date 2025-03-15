@@ -2,15 +2,20 @@ package com.example.mikocompany
 
 import android.util.Log
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -18,7 +23,8 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -266,17 +272,79 @@ fun MikoInfoDialog(
 // for the data interaction form
 @Composable
 fun MikoDialog(
-
+    openDialog : MutableState<Boolean>,
+    width : Int,
+    height : Int,
+    color: Color,
+    content : @Composable () -> Unit
 ){
-
+    Dialog(
+        onDismissRequest = {
+            openDialog.value = false
+        }
+    ){
+        Card(
+            modifier = Modifier
+                .size(width = width.dp, height = height.dp),
+            colors = CardDefaults.cardColors(color)
+        ) {
+            content()
+        }
+    }
 }
 
 // for popup menu
 @Composable
 fun MikoDropDownMenu(
-
+    openMenu : MutableState<Boolean>,
+    textButton : String,
+    ddmlist : List<String>,
+    pick : MutableState<String>
+//    ddmlist : State<String>
 ){
+    Box(
+        modifier = Modifier
+    ){
+        Button(
+            modifier = Modifier,
+            onClick = {
+                openMenu.value = true
+            },
+            colors = ButtonDefaults.buttonColors(containerS),
+            shape = CircleShape
+        ) {
+            Text(
+                text = textButton,
+                fontFamily = zk,
+                color = backgroundS,
+                fontSize = 22.sp
+            )
+        }
 
+        if (openMenu.value){
+            DropdownMenu(
+                modifier = Modifier
+                    .background(containerS),
+                expanded = openMenu.value,
+                onDismissRequest = { openMenu.value = false }
+            ) {
+                for (i in ddmlist.indices){
+                    DropdownMenuItem(
+                        text = { Text(
+                            text = ddmlist.get(index = i),
+                            fontFamily = zk,
+                            color = backgroundS,
+                            fontSize = 22.sp
+                        ) },
+                        onClick = {
+                            pick.value = ddmlist.get(index = i)
+                            openMenu.value = false
+                        }
+                    )
+                }
+            }
+        }
+    }
 }
 
 // to sign the application

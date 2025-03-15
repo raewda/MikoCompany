@@ -1,11 +1,13 @@
 package com.example.mikocompany.screens
 
 
+import android.widget.ProgressBar
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -15,6 +17,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.navigation.NavHostController
 import com.example.mikocompany.MikoButton
+import com.example.mikocompany.MikoDialog
+import com.example.mikocompany.MikoDropDownMenu
 import com.example.mikocompany.MikoInfoDialog
 import com.example.mikocompany.MikoName
 import com.example.mikocompany.MikoReadOnlyTextField
@@ -47,6 +51,8 @@ fun Start(
     val test = remember { mutableStateOf(TextFieldValue("")) }
     val test2 = remember { mutableStateOf(TextFieldValue("test2")) }
     val openDialog = remember { mutableStateOf(false) }
+    val openMenu = remember { mutableStateOf(false) }
+    val test3 = remember { mutableStateOf("") }
 
     Scaffold(
         modifier = Modifier
@@ -81,17 +87,38 @@ fun Start(
             )
 
             if (openDialog.value){
-                MikoInfoDialog(
+//                MikoInfoDialog(
+//                    openDialog = openDialog,
+//                    width = 300,
+//                    height = 300,
+//                    color = containerS,
+//                    textColor = backgroundS
+////                vmstate = vmstate
+//                )
+
+                MikoDialog(
                     openDialog = openDialog,
                     width = 300,
                     height = 300,
-                    color = containerS,
-                    textColor = backgroundS
-//                vmstate = vmstate
-                )
+                    color = containerS
+                ) {
+                    Text(
+                        text = "hfjfhf"
+                    )
+                }
             }
 
+            MikoDropDownMenu(
+                ddmlist = listOf(
+                    "one", "two"
+                ),
+                openMenu = openMenu,
+                textButton = "clac",
+                pick = test3
+            )
+
             MikoName()
+
         }
     }
 }
