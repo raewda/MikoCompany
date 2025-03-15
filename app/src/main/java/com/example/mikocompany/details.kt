@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -72,7 +73,8 @@ fun MikoTextField(
             unfocusedContainerColor = lightContainerS,
             focusedIndicatorColor = backgroundS,
             unfocusedIndicatorColor = secondary
-        )
+        ),
+        shape = RoundedCornerShape(12.dp)
     )
 }
 
@@ -99,7 +101,8 @@ fun MikoReadOnlyTextField(
             unfocusedContainerColor = containerS,
             focusedIndicatorColor = backgroundS,
             unfocusedIndicatorColor = backgroundS
-        )
+        ),
+        shape = RoundedCornerShape(12.dp)
     )
 }
 
@@ -132,7 +135,6 @@ fun MikoText(
 ){
     Column(
         modifier = Modifier
-            .fillMaxWidth()
             .padding(horizontal = 20.dp)
     ) {
         Text(
@@ -153,14 +155,15 @@ fun MikoButton(
     icon : ImageVector? = null,
     text : String? = null,
     color : Color,
-    colortext : Color,
+    modifier: Modifier = Modifier
 ){
     Button(
         onClick = onClick,
-        modifier = Modifier
+        modifier = modifier
             .padding(vertical = 5.dp)
             .padding(horizontal = 15.dp),
-        colors = ButtonDefaults.buttonColors(color)
+        colors = ButtonDefaults.buttonColors(containerS),
+        shape = RoundedCornerShape(12.dp)
     ) {
         if (icon != null && text == null){
             Icon(
@@ -172,7 +175,7 @@ fun MikoButton(
             Text(
                 text = text,
                 modifier = Modifier,
-                color = colortext,
+                color = color,
                 fontFamily = zk,
                 fontSize = 25.sp
             )
