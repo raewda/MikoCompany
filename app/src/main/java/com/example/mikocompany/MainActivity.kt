@@ -13,6 +13,7 @@ import com.example.mikocompany.screens.Acceptance
 import com.example.mikocompany.screens.ApplicationInfo
 import com.example.mikocompany.screens.Authorization
 import com.example.mikocompany.screens.Category
+import com.example.mikocompany.screens.Filling
 import com.example.mikocompany.screens.Offer
 import com.example.mikocompany.screens.Order
 import com.example.mikocompany.screens.Profile
@@ -41,6 +42,7 @@ class MainActivity : ComponentActivity() {
                 val authorization = remember{ mutableStateOf(false) }
                 val registration = remember{ mutableStateOf(false) }
                 val applicationInfo = remember{ mutableStateOf(false) }
+                val filling = remember{ mutableStateOf(false) }
 
                 NavHost(
                     navController = navController,
@@ -110,6 +112,12 @@ class MainActivity : ComponentActivity() {
                         ApplicationInfo(
                             navController,
                             applicationInfo = applicationInfo
+                        )
+                    }
+                    composable("filling") {
+                        Filling(
+                            navController,
+                            filling = filling
                         )
                     }
                 }

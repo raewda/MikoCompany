@@ -78,7 +78,7 @@ fun Authorization(
 
             MikoButton(
                 onClick = {
-                    navController.navigate("order")
+                    navController.navigate("warehouse")
                 },
                 text = "ок",
                 color = backgroundS

@@ -24,6 +24,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -159,7 +160,8 @@ fun Registration (
                     )
                     MikoTextField(
                         value = email,
-                        "ввести email"
+                        "ввести email",
+                        keyType = KeyboardType.Email
                     )
                 }
 
@@ -173,7 +175,8 @@ fun Registration (
                     )
                     MikoTextField(
                         value = phone,
-                        "ввести номер"
+                        "ввести номер",
+                        keyType = KeyboardType.Phone
                     )
                 }
 

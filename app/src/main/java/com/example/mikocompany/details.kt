@@ -8,8 +8,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -30,7 +33,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -42,12 +47,30 @@ import com.example.mikocompany.ui.theme.lightContainerS
 import com.example.mikocompany.ui.theme.primary
 import com.example.mikocompany.ui.theme.secondary
 import com.example.mikocompany.ui.theme.zk
+import java.util.Calendar
+
+
+// for design modules
+@Composable
+fun MikoBackCard(
+    modifier: Modifier = Modifier,
+    color: Color,
+    content: @Composable () -> Unit
+){
+    Card(
+        modifier = modifier,
+        colors = CardDefaults.cardColors(color)
+    ) {
+        content()
+    }
+}
 
 // for editable fields
 @Composable
 fun MikoTextField(
     value : MutableState<TextFieldValue>,
-    placeHol : String
+    placeHol : String,
+    keyType : KeyboardType? = KeyboardType.Unspecified
 ){
     OutlinedTextField(
         value = value.value,
@@ -74,7 +97,8 @@ fun MikoTextField(
             focusedIndicatorColor = backgroundS,
             unfocusedIndicatorColor = secondary
         ),
-        shape = RoundedCornerShape(12.dp)
+        shape = RoundedCornerShape(12.dp),
+        keyboardOptions = KeyboardOptions(keyboardType = keyType!!)
     )
 }
 
@@ -183,6 +207,26 @@ fun MikoText(
     }
 }
 
+// for subtitle
+@Composable
+fun MikoSecondaryText(
+    value : String
+){
+    Column(
+        modifier = Modifier
+            .padding(horizontal = 20.dp)
+    ) {
+        Text(
+            text = value,
+            modifier = Modifier,
+            color = secondary,
+            fontFamily = zk,
+            fontSize = 35.sp,
+            softWrap = true
+        )
+    }
+}
+
 // for accent buttons
 @Composable
 fun MikoButton(
@@ -260,7 +304,8 @@ fun MikoInfoDialog(
     ){
         Card(
             modifier = Modifier
-                .size(width = width.dp, height = height.dp),
+                .size(width = width.dp, height = height.dp)
+                .verticalScroll(rememberScrollState()),
             colors = CardDefaults.cardColors(color)
         ) {
             Text(
@@ -349,13 +394,15 @@ fun MikoDropDownMenu(
                 openMenu.value = true
             },
             colors = ButtonDefaults.buttonColors(containerS),
-            shape = CircleShape
+            shape = RoundedCornerShape(12.dp)
         ) {
             Text(
                 text = textButton,
                 fontFamily = zk,
                 color = backgroundS,
-                fontSize = 25.sp
+                fontSize = 25.sp,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
         }
 
