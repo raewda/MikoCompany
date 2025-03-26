@@ -10,6 +10,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.mikocompany.screens.Acceptance
+import com.example.mikocompany.screens.AcceptanceAdd
 import com.example.mikocompany.screens.ApplicationInfo
 import com.example.mikocompany.screens.Authorization
 import com.example.mikocompany.screens.Category
@@ -43,6 +44,7 @@ class MainActivity : ComponentActivity() {
                 val registration = remember{ mutableStateOf(false) }
                 val applicationInfo = remember{ mutableStateOf(false) }
                 val filling = remember{ mutableStateOf(false) }
+                val acceptanceAdd = remember{ mutableStateOf(false) }
 
                 NavHost(
                     navController = navController,
@@ -118,6 +120,12 @@ class MainActivity : ComponentActivity() {
                         Filling(
                             navController,
                             filling = filling
+                        )
+                    }
+                    composable("acceptanceAdd") {
+                        AcceptanceAdd(
+                            navController,
+                            acceptanceAdd = acceptanceAdd
                         )
                     }
                 }

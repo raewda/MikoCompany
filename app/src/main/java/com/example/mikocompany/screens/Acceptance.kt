@@ -10,8 +10,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Scaffold
@@ -21,43 +19,27 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.mikocompany.MikoBackCard
 import com.example.mikocompany.MikoButton
-import com.example.mikocompany.MikoDialog
 import com.example.mikocompany.MikoDropDownMenu
 import com.example.mikocompany.MikoText
-import com.example.mikocompany.MikoTextButton
-import com.example.mikocompany.MikoTextField
 import com.example.mikocompany.MikoTitle
 import com.example.mikocompany.dcl.AcceptanceClass
 import com.example.mikocompany.ui.theme.backgroundP
 import com.example.mikocompany.ui.theme.backgroundS
 import com.example.mikocompany.ui.theme.lightContainerS
-import java.util.Calendar
-import java.util.Date
-import java.util.GregorianCalendar
 
 @Composable
 fun Acceptance(
     navController : NavHostController,
     acceptance : MutableState<Boolean>
 ){
-    val ddmlist = listOf("oneoneoneoneoneoneoneoneoneoneoneoneoneoneoneoneoneoneoneone")
+    val ddmlist = listOf("one", "two")
     val pick = remember { mutableStateOf("") }
     val openMenu = remember { mutableStateOf(false) }
-    val openDialog = remember { mutableStateOf(false) }
-
-    // передать id склада и взять его название
-    val warehouseName = remember { mutableStateOf("склад №1") }
-
-    val calendar = Calendar.getInstance()
-    val date : Calendar = GregorianCalendar()
-
-    val dateAcceptance = remember { mutableStateOf(TextFieldValue("")) }
+    val dateAcceptance = remember { mutableStateOf("hui") }
 
     Scaffold(
         modifier = Modifier
@@ -100,7 +82,7 @@ fun Acceptance(
 
                 MikoButton(
                     onClick = {
-                        openDialog.value = true
+                        navController.navigate("acceptanceAdd")
                     },
                     icon = Icons.Default.Add,
                     color = backgroundS,
@@ -108,71 +90,6 @@ fun Acceptance(
                         .height(60.dp)
                 )
 
-                if (openDialog.value){
-                    MikoDialog(
-                        openDialog = openDialog,
-                        width = 400,
-                        height = 550,
-                        color = lightContainerS
-                    ) {
-                        Column(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .verticalScroll(rememberScrollState()),
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.SpaceAround
-                        ) {
-                            MikoText(
-                                "добавить приёмку"
-                            )
-
-                            Column(
-                                modifier = Modifier
-                                    .fillMaxWidth(0.8F),
-                                verticalArrangement = Arrangement.spacedBy(10.dp)
-                            ) {
-                                MikoText(
-                                    warehouseName.value
-                                )
-
-                                Date(
-                                    calendar.get(Calendar.YEAR),
-                                    calendar.get(Calendar.MONTH),
-                                    calendar.get(Calendar.DAY_OF_MONTH)
-                                )
-
-                                MikoTextField(
-                                    dateAcceptance,
-                                    "дата",
-                                    keyType = KeyboardType.Number
-                                )
-
-                                MikoText(
-                                    "позиции:"
-                                )
-
-                                MikoTextButton(
-                                    onClick = {
-//                                        FillingAdd(
-//
-//                                        )
-                                    },
-                                    "добавить позицию",
-                                    backgroundP
-                                )
-
-                            }
-
-                            MikoButton(
-                                onClick = {
-                                    openDialog.value = false
-                                },
-                                text = "добавить",
-                                color = backgroundS
-                            )
-                        }
-                    }
-                }
             }
 
             MikoBackCard(
@@ -271,12 +188,6 @@ fun acceptanceColumn(
 //
 //        MikoTextField(
 //            count_filling,
-//            "0",
-//            keyType = KeyboardType.Number
-//        )
-//
-//        MikoTextField(
-//            price_filling,
 //            "0",
 //            keyType = KeyboardType.Number
 //        )
