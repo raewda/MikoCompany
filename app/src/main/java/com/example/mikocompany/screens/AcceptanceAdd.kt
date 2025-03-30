@@ -13,12 +13,16 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CalendarLocale
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDefaults
 import androidx.compose.material3.DatePickerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldColors
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
@@ -28,12 +32,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.mikocompany.MikoButton
 import com.example.mikocompany.MikoDropDownMenu
+import com.example.mikocompany.MikoSecondaryText
 import com.example.mikocompany.MikoText
 import com.example.mikocompany.MikoTextButton
 import com.example.mikocompany.MikoTextField
@@ -70,11 +76,16 @@ fun AcceptanceAdd(
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceAround
+            verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
-            MikoText(
-                "добавить приёмку"
-            )
+            Card(
+                modifier = Modifier,
+                colors = CardDefaults.cardColors(lightContainerS)
+            ) {
+                MikoSecondaryText(
+                    "добавить приёмку"
+                )
+            }
 
             Column(
                 modifier = Modifier
@@ -116,22 +127,37 @@ fun AcceptanceAdd(
                         currentYearContentColor = secondary,
                         titleContentColor = secondary,
                         headlineContentColor = secondary,
-                        subheadContentColor = containerS
+                        subheadContentColor = containerS,
+                        dateTextFieldColors = TextFieldDefaults.colors(
+                            focusedContainerColor = Color.Transparent,
+                            focusedIndicatorColor = secondary,
+                            unfocusedIndicatorColor = containerS,
+                            focusedTextColor = secondary,
+                            unfocusedTextColor = containerS,
+                            focusedLabelColor = secondary,
+                            unfocusedLabelColor = containerS,
+                            unfocusedContainerColor = Color.Transparent
+                        )
                     )
-                    )
-
-                MikoText(
-                    "позиции:"
                 )
 
-                MikoTextButton(
-                    onClick = {
-                        acceptances.add(acceptanceFilling(mutableStateOf("one"), mutableIntStateOf(4)))
-                    },
-                    "добавить позицию",
-                    secondary
-                )
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceAround
+                ) {
+                    MikoSecondaryText(
+                        "позиции:"
+                    )
 
+                    MikoTextButton(
+                        onClick = {
+                            acceptances.add(acceptanceFilling(mutableStateOf("one"), mutableIntStateOf(4)))
+                        },
+                        "добавить",
+                        secondary
+                    )
+                }
 
                 Column(
                     modifier = Modifier,
@@ -196,7 +222,8 @@ fun AcceptanceAdd(
 
             MikoButton(
                 onClick = {
-
+                    // добавление приемки в бд
+                    navController.navigate("acceptance")
                 },
                 text = "добавить",
                 color = backgroundS
