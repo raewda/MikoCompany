@@ -39,6 +39,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.mikocompany.MikoButton
 import com.example.mikocompany.MikoDropDownMenu
+import com.example.mikocompany.MikoLargeTextField
 import com.example.mikocompany.MikoSecondaryText
 import com.example.mikocompany.MikoText
 import com.example.mikocompany.MikoTextButton
@@ -65,6 +66,8 @@ fun AcceptanceAdd(
 
     val acceptances = remember { mutableStateListOf<acceptanceFilling>() }
 
+    val comment = remember { mutableStateOf(TextFieldValue("")) }
+
     Scaffold(
         modifier = Modifier
             .fillMaxSize(),
@@ -78,6 +81,20 @@ fun AcceptanceAdd(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalAlignment = Alignment.Start
+            ) {
+                MikoTextButton(
+                    onClick = {
+                        navController.navigateUp()
+                    },
+                    "назад",
+                    color = containerS
+                )
+            }
+
             Card(
                 modifier = Modifier,
                 colors = CardDefaults.cardColors(lightContainerS)
@@ -86,15 +103,15 @@ fun AcceptanceAdd(
                     "добавить приёмку"
                 )
             }
+            MikoText(
+                warehouseName.value
+            )
 
             Column(
                 modifier = Modifier
                     .fillMaxWidth(0.8F),
                 verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
-                MikoText(
-                    warehouseName.value
-                )
 
                 DatePicker(
                     state = datePickerState.value,
@@ -218,6 +235,22 @@ fun AcceptanceAdd(
 
                     }
                 }
+
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    horizontalAlignment = Alignment.Start,
+                    verticalArrangement = Arrangement.spacedBy(15.dp)
+                ) {
+                    MikoText(
+                        "комментарий:"
+                    )
+
+                    MikoLargeTextField(
+                        comment,
+                        "ввести комментарий"
+                    )
+                }
             }
 
             MikoButton(
@@ -225,8 +258,10 @@ fun AcceptanceAdd(
                     // добавление приемки в бд
                     navController.navigate("acceptance")
                 },
-                text = "добавить",
-                color = backgroundS
+                text = "добавить приёмку",
+                color = backgroundS,
+                modifier = Modifier
+                    .padding(bottom = 50.dp)
             )
         }
     }
