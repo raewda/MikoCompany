@@ -1,10 +1,12 @@
 package com.example.mikocompany.screens
 
 import android.util.Log
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -38,6 +40,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.mikocompany.MikoButton
+import com.example.mikocompany.MikoDialog
 import com.example.mikocompany.MikoDropDownMenu
 import com.example.mikocompany.MikoLargeTextField
 import com.example.mikocompany.MikoSecondaryText
@@ -67,6 +70,12 @@ fun AcceptanceAdd(
     val acceptances = remember { mutableStateListOf<acceptanceFilling>() }
 
     val comment = remember { mutableStateOf(TextFieldValue("")) }
+
+    val openDialog = remember { mutableStateOf(false) }
+
+    val all_count = remember { mutableStateOf(0) }
+
+    val all_price = remember { mutableStateOf(0) }
 
     Scaffold(
         modifier = Modifier
@@ -161,7 +170,7 @@ fun AcceptanceAdd(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceAround
+                    horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     MikoSecondaryText(
                         "позиции:"
@@ -215,13 +224,12 @@ fun AcceptanceAdd(
                             }
                         }
 
-                        Log.d("ghvghhvbjdvkfkvdfj", ddmlist.toString())
-
                         LaunchedEffect(
                             count.value
                         ) {
                             if (count.value.text.isNotEmpty()){
                                 item.count.value = count.value.text.toInt()
+                                all_count.value = all_count.value + count.value.text.toInt()
                             }
                         }
 
@@ -245,7 +253,12 @@ fun AcceptanceAdd(
                     MikoText(
                         "комментарий:"
                     )
-
+                }
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
                     MikoLargeTextField(
                         comment,
                         "ввести комментарий"
@@ -255,14 +268,70 @@ fun AcceptanceAdd(
 
             MikoButton(
                 onClick = {
-                    // добавление приемки в бд
-                    navController.navigate("acceptance")
+                    openDialog.value = true
                 },
                 text = "добавить приёмку",
                 color = backgroundS,
                 modifier = Modifier
                     .padding(bottom = 50.dp)
             )
+
+            if (openDialog.value){
+                MikoDialog(
+                    openDialog,
+                    350,
+                    250,
+                    lightContainerS
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize(),
+                        horizontalAlignment = Alignment.Start,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        MikoSecondaryText(
+                            value = "объём поставки: "
+                        )
+
+                        Card(
+                            colors = CardDefaults.cardColors(backgroundS),
+                            modifier = Modifier
+                                .padding(horizontal = 15.dp)
+                        ) {
+                            MikoText(
+                                value = all_count.value.toString() + " шт"
+                            )
+                        }
+
+                        MikoSecondaryText(
+                            value = "общая стоимость: "
+                        )
+                        Card(
+                            colors = CardDefaults.cardColors(backgroundS),
+                            modifier = Modifier
+                                .padding(horizontal = 15.dp)
+                        ) {
+                            MikoText(
+                                value = all_price.value.toString() + " ₽"
+                            )
+                        }
+
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            horizontalAlignment = Alignment.End
+                        ) {
+                            MikoTextButton(
+                                onClick = {
+                                    navController.navigate("acceptance")
+                                },
+                                text = "добавить приёмку",
+                                color = backgroundS,
+                            )
+                        }
+                    }
+                }
+            }
         }
     }
 }
