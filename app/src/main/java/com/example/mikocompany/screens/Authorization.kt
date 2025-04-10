@@ -14,10 +14,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.example.mikocompany.MikoButton
-import com.example.mikocompany.MikoReadOnlyTextField
-import com.example.mikocompany.MikoTextField
-import com.example.mikocompany.MikoTitle
+import com.example.mikocompany.details.MikoButton
+import com.example.mikocompany.details.MikoReadOnlyTextField
+import com.example.mikocompany.details.MikoTextField
+import com.example.mikocompany.details.MikoTitle
 import com.example.mikocompany.ui.theme.backgroundP
 import com.example.mikocompany.ui.theme.backgroundS
 

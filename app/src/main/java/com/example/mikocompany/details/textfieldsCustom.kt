@@ -1,5 +1,6 @@
 package com.example.mikocompany.details
 
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.OutlinedTextField
@@ -116,5 +117,43 @@ fun MikoLargeTextField(
             unfocusedIndicatorColor = secondary
         ),
         shape = RoundedCornerShape(12.dp)
+    )
+}
+
+// for digital-text
+@Composable
+fun MikoDigitalTextField(
+    value : MutableState<TextFieldValue>,
+    placeHol : String,
+    keyType : KeyboardType? = KeyboardType.Unspecified
+){
+    OutlinedTextField(
+        value = value.value,
+        onValueChange = {
+                new -> value.value = new
+        },
+        modifier = Modifier
+            .height(54.dp),
+        enabled = true,
+        readOnly = false,
+        singleLine = true,
+        textStyle = TextStyle(
+            fontFamily = zk,
+            fontSize = 18.sp,
+            color = backgroundS
+        ),
+        placeholder = { Text(placeHol,
+            color = backgroundS,
+            fontFamily = zk,
+            fontSize = 18.sp,) },
+        colors = TextFieldDefaults.colors(
+            cursorColor = secondary,
+            focusedContainerColor = containerS,
+            unfocusedContainerColor = lightContainerS,
+            focusedIndicatorColor = backgroundS,
+            unfocusedIndicatorColor = secondary
+        ),
+        shape = RoundedCornerShape(12.dp),
+        keyboardOptions = KeyboardOptions(keyboardType = keyType!!)
     )
 }

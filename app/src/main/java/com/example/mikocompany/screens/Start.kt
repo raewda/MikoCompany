@@ -15,10 +15,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.example.mikocompany.MikoButton
-import com.example.mikocompany.MikoName
-import com.example.mikocompany.MikoText
 import com.example.mikocompany.R
+import com.example.mikocompany.details.MikoButton
+import com.example.mikocompany.details.MikoName
+import com.example.mikocompany.details.MikoText
 import com.example.mikocompany.ui.theme.backgroundP
 import com.example.mikocompany.ui.theme.backgroundS
 

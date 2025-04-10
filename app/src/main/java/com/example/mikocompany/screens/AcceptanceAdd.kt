@@ -39,8 +39,11 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.mikocompany.details.MikoBackCard
 import com.example.mikocompany.details.MikoButton
+import com.example.mikocompany.details.MikoCalender
 import com.example.mikocompany.details.MikoDialog
+import com.example.mikocompany.details.MikoDigitalTextField
 import com.example.mikocompany.details.MikoDropDownMenu
 import com.example.mikocompany.details.MikoLargeTextField
 import com.example.mikocompany.details.MikoSecondaryText
@@ -50,6 +53,7 @@ import com.example.mikocompany.details.MikoTextField
 import com.example.mikocompany.ui.theme.backgroundP
 import com.example.mikocompany.ui.theme.backgroundS
 import com.example.mikocompany.ui.theme.containerS
+import com.example.mikocompany.ui.theme.lightContainerP
 import com.example.mikocompany.ui.theme.lightContainerS
 import com.example.mikocompany.ui.theme.primary
 import com.example.mikocompany.ui.theme.secondary
@@ -65,6 +69,8 @@ fun AcceptanceAdd(
 
     val datePickerState = remember { mutableStateOf(DatePickerState(locale = CalendarLocale.getDefault())) }
 
+    val dateSelecter = remember { mutableStateOf("выбрать") }
+
     val ddmlist = listOf("one", "two")
 
     val acceptances = remember { mutableStateListOf<acceptanceFilling>() }
@@ -72,6 +78,8 @@ fun AcceptanceAdd(
     val comment = remember { mutableStateOf(TextFieldValue("")) }
 
     val openDialog = remember { mutableStateOf(false) }
+
+    val openDate = remember { mutableStateOf(false) }
 
     val all_count = remember { mutableStateOf(0) }
 
@@ -106,7 +114,7 @@ fun AcceptanceAdd(
 
             Card(
                 modifier = Modifier,
-                colors = CardDefaults.cardColors(lightContainerS)
+                colors = CardDefaults.cardColors(lightContainerP)
             ) {
                 MikoSecondaryText(
                     "добавить приёмку"
@@ -122,50 +130,63 @@ fun AcceptanceAdd(
                 verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
 
-                DatePicker(
-                    state = datePickerState.value,
-                    modifier = Modifier,
-                    title = {
-                    DatePickerDefaults.DatePickerTitle(
-                        displayMode = datePickerState.value.displayMode,
+                MikoBackCard(
+                    color = lightContainerS,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                ) {
+                    Row(
                         modifier = Modifier
+                            .fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        MikoText(
+                            "дата приёмки:"
                         )
-                    },
-                    headline = {
-                    DatePickerDefaults.DatePickerHeadline(
-                        selectedDateMillis = datePickerState.value.selectedDateMillis,
-                        displayMode = datePickerState.value.displayMode,
-                        modifier = Modifier,
-                        dateFormatter = DatePickerDefaults.dateFormatter()
+
+                        MikoTextButton(
+                            onClick = {
+                                openDate.value = true
+                            },
+                            text = dateSelecter.value,
+                            color = secondary
                         )
-                    },
-                    showModeToggle = true,
-                    colors = DatePickerDefaults.colors(
-                        selectedDayContainerColor = containerS,
-                        selectedDayContentColor = backgroundS,
-                        selectedYearContentColor = backgroundS,
-                        selectedYearContainerColor = containerS,
-                        navigationContentColor = secondary,
-                        yearContentColor = containerS,
-                        todayContentColor = secondary,
-                        todayDateBorderColor = secondary,
-                        dividerColor = containerS,
-                        currentYearContentColor = secondary,
-                        titleContentColor = secondary,
-                        headlineContentColor = secondary,
-                        subheadContentColor = containerS,
-                        dateTextFieldColors = TextFieldDefaults.colors(
-                            focusedContainerColor = Color.Transparent,
-                            focusedIndicatorColor = secondary,
-                            unfocusedIndicatorColor = containerS,
-                            focusedTextColor = secondary,
-                            unfocusedTextColor = containerS,
-                            focusedLabelColor = secondary,
-                            unfocusedLabelColor = containerS,
-                            unfocusedContainerColor = Color.Transparent
-                        )
-                    )
-                )
+
+                        if (openDate.value){
+                            MikoDialog(
+                                openDate,
+                                350,
+                                650,
+                                backgroundS
+                            ) {
+                                Column(
+                                    modifier = Modifier
+                                        .fillMaxWidth(),
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                    verticalArrangement = Arrangement.spacedBy(10.dp)
+                                ) {
+                                    MikoText(
+                                        "выбрать дату"
+                                    )
+
+                                    MikoCalender(
+                                        datePickerState
+                                    )
+
+                                    MikoButton(
+                                        onClick = {
+                                            openDate.value = false
+                                            dateSelecter.value = datePickerState.value.toString()
+                                        },
+                                        text = "ок",
+                                        color = backgroundS
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
 
                 Row(
                     modifier = Modifier
@@ -216,7 +237,7 @@ fun AcceptanceAdd(
                                 modifier = Modifier
                                     .fillMaxWidth(0.4F)
                             ) {
-                                MikoTextField(
+                                MikoDigitalTextField(
                                     count,
                                     "0",
                                     keyType = KeyboardType.Number
@@ -281,7 +302,7 @@ fun AcceptanceAdd(
                     openDialog,
                     350,
                     250,
-                    lightContainerS
+                    lightContainerP
                 ) {
                     Column(
                         modifier = Modifier

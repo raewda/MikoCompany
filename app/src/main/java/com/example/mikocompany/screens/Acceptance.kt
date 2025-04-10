@@ -21,12 +21,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.example.mikocompany.MikoBackCard
-import com.example.mikocompany.MikoButton
-import com.example.mikocompany.MikoDropDownMenu
-import com.example.mikocompany.MikoText
-import com.example.mikocompany.MikoTitle
 import com.example.mikocompany.dcl.AcceptanceClass
+import com.example.mikocompany.details.MikoBackCard
+import com.example.mikocompany.details.MikoButton
+import com.example.mikocompany.details.MikoDropDownMenu
+import com.example.mikocompany.details.MikoText
+import com.example.mikocompany.details.MikoTitle
 import com.example.mikocompany.ui.theme.backgroundP
 import com.example.mikocompany.ui.theme.backgroundS
 import com.example.mikocompany.ui.theme.lightContainerS
