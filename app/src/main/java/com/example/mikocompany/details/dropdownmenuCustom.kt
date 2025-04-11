@@ -75,3 +75,60 @@ fun MikoDropDownMenu(
         }
     }
 }
+
+// for mini popup menu
+@Composable
+fun MikoMiniDropDownMenu(
+    openMenu : MutableState<Boolean>,
+    textButton : String,
+    ddmlist : List<String>,
+    pick : MutableState<String>
+//    ddmlist : State<String>
+){
+    Box(
+        modifier = Modifier
+            .padding(horizontal = 10.dp)
+    ){
+        Button(
+            modifier = Modifier,
+            onClick = {
+                openMenu.value = true
+            },
+            colors = ButtonDefaults.buttonColors(containerS),
+            shape = RoundedCornerShape(12.dp)
+        ) {
+            Text(
+                text = textButton,
+                fontFamily = zk,
+                color = backgroundS,
+                fontSize = 25.sp,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+        }
+
+        if (openMenu.value){
+            DropdownMenu(
+                modifier = Modifier
+                    .background(containerS),
+                expanded = openMenu.value,
+                onDismissRequest = { openMenu.value = false }
+            ) {
+                for (i in ddmlist.indices){
+                    DropdownMenuItem(
+                        text = { Text(
+                            text = ddmlist.get(index = i),
+                            fontFamily = zk,
+                            color = backgroundS,
+                            fontSize = 25.sp
+                        ) },
+                        onClick = {
+                            pick.value = ddmlist.get(index = i)
+                            openMenu.value = false
+                        }
+                    )
+                }
+            }
+        }
+    }
+}

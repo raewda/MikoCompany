@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.mikocompany.ui.theme.containerP
 import com.example.mikocompany.ui.theme.containerS
 import com.example.mikocompany.ui.theme.zk
 
