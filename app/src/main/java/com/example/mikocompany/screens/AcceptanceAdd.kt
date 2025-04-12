@@ -36,7 +36,6 @@ import com.example.mikocompany.details.MikoDialog
 import com.example.mikocompany.details.MikoDigitalTextField
 import com.example.mikocompany.details.MikoDropDownMenu
 import com.example.mikocompany.details.MikoLargeTextField
-import com.example.mikocompany.details.MikoMiniDropDownMenu
 import com.example.mikocompany.details.MikoSecondaryText
 import com.example.mikocompany.details.MikoText
 import com.example.mikocompany.details.MikoTextButton

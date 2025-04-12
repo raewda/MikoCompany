@@ -5,12 +5,11 @@ import java.util.Date
 data class AcceptanceClass(
     val id : Int,
     val date : String,
-    val price : Float,
-    val full_count : Int
+    val price : Float
 ){
     companion object{
 
-        val one = AcceptanceClass(0, "25.03.2025", 5000.0F, 150)
+        val one = AcceptanceClass(0, "25.03.2025", 5000.0F)
 
         val ordersAll = mutableListOf(
             one

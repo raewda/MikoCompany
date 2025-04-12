@@ -161,9 +161,6 @@ fun acceptanceColumn(
                 item.date
             )
             MikoText(
-                item.full_count.toString()
-            )
-            MikoText(
                 item.price.toString()
             )
         }
