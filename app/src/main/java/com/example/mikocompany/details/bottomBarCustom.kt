@@ -99,7 +99,13 @@ fun MikoNavigation(
                                     navController.navigate("warehouse")
                                 },
                                 text = "склад",
-                                color = secondary
+                                color =
+                                    if (currentRoute == "warehouse"){
+                                        primary
+                                    }
+                                    else{
+                                        secondary
+                                    }
                             )
 
                             MikoTextButton(
@@ -107,7 +113,13 @@ fun MikoNavigation(
                                     navController.navigate("profile")
                                 },
                                 text = "профиль",
-                                color = secondary
+                                color =
+                                if (currentRoute == "profile"){
+                                    primary
+                                }
+                                else{
+                                    secondary
+                                }
                             )
                         }
                     },
