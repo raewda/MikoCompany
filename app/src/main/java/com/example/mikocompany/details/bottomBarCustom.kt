@@ -1,6 +1,5 @@
 package com.example.mikocompany.details
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,21 +18,27 @@ import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
 import com.example.mikocompany.dcl.NavRouts.Companion.routsAll
 import com.example.mikocompany.ui.theme.backgroundS
+import com.example.mikocompany.ui.theme.lightContainerS
+import com.example.mikocompany.ui.theme.primary
 import com.example.mikocompany.ui.theme.secondary
 import kotlinx.coroutines.launch
 
 @Composable
-fun MikoBurgerMenu(
-    navController : NavHostController
+fun MikoNavigation(
+    navController : NavHostController,
+    content : @Composable () -> Unit
 ){
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
+    val navBackStackEntry = navController.currentBackStackEntryFlow.collectAsState(initial = null).value
+    val currentRoute = navBackStackEntry?.destination?.route
 
     ModalNavigationDrawer(
         drawerState = drawerState,
@@ -52,7 +57,13 @@ fun MikoBurgerMenu(
                                 navController.navigate(routsAll.get(index = i).name)
                             },
                             text = routsAll.get(index = i).translate,
-                            color = backgroundS
+                            color =
+                                if (currentRoute == routsAll.get(index = i).name){
+                                    lightContainerS
+                                }
+                                else{
+                                    backgroundS
+                                }
                         )
                     }
                 }
@@ -60,65 +71,59 @@ fun MikoBurgerMenu(
         },
     ) {
         Scaffold(
-            floatingActionButton = {
-                MikoButton(
-                    onClick = {
-                        scope.launch {
-                            drawerState.apply {
-                                if (isClosed) open() else close()
-                            }
-                        }
-                    },
-                    icon = Icons.Filled.Menu,
-                    color = secondary
-                )
-            },
             modifier = Modifier
                 .fillMaxHeight(),
-            containerColor = Color.Transparent
-        ){ contentPadding ->
+            containerColor = Color.Transparent,
+            bottomBar = {
+                BottomAppBar(
+                    actions = {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxSize(),
+                            horizontalArrangement = Arrangement.SpaceAround
+                        ) {
+                            MikoButton(
+                                onClick = {
+                                    scope.launch {
+                                        drawerState.apply {
+                                            if (isClosed) open() else close()
+                                        }
+                                    }
+                                },
+                                icon = Icons.Filled.Menu,
+                                color = secondary
+                            )
+
+                            MikoTextButton(
+                                onClick = {
+                                    navController.navigate("warehouse")
+                                },
+                                text = "склад",
+                                color = secondary
+                            )
+
+                            MikoTextButton(
+                                onClick = {
+                                    navController.navigate("profile")
+                                },
+                                text = "профиль",
+                                color = secondary
+                            )
+                        }
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    containerColor = backgroundS
+                )
+            }
+        ){ innerPadding ->
             Column(
                 modifier = Modifier
-                    .padding(contentPadding)
+                    .padding(innerPadding)
             ) {
-
+                content
             }
         }
     }
 
-}
-
-@Composable
-fun MikoBottomBar(
-    navController : NavHostController
-){
-    BottomAppBar(
-        actions = {
-            Row(
-                modifier = Modifier
-                    .fillMaxSize(),
-                horizontalArrangement = Arrangement.SpaceAround
-            ) {
-
-                MikoBurgerMenu(
-                    navController
-                )
-
-                MikoTextButton(
-                    onClick = { },
-                    text = "warehouse",
-                    color = secondary
-                    )
-
-                MikoTextButton(
-                    onClick = { },
-                    text = "profile",
-                    color = secondary
-                )
-            }
-        },
-        modifier = Modifier
-            .fillMaxWidth(),
-        containerColor = backgroundS
-    )
 }
