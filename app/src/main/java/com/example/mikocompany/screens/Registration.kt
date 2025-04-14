@@ -29,6 +29,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.mikocompany.details.MikoButton
+import com.example.mikocompany.details.MikoDropDownMenu
 import com.example.mikocompany.details.MikoInfoDialog
 import com.example.mikocompany.details.MikoLargeTextField
 import com.example.mikocompany.details.MikoReadOnlyTextField
@@ -61,11 +62,18 @@ fun Registration (
     val description = remember { mutableStateOf(TextFieldValue("")) }
     val conditionsRO = remember { mutableStateOf(TextFieldValue("условия компании")) }
     val conditions = remember { mutableStateOf(TextFieldValue("")) }
+    val companyTypeRO = remember { mutableStateOf(TextFieldValue("тип компании")) }
+    val companyType = remember { mutableStateOf("") }
+    val innRO = remember { mutableStateOf(TextFieldValue("инн компании")) }
+    val inn = remember { mutableStateOf(TextFieldValue("")) }
 
     var checked by remember { mutableStateOf(false) }
     val context = LocalContext.current
 
     val openInfoDialog = remember { mutableStateOf(false) }
+    val openMenuType = remember { mutableStateOf(false) }
+    val ddmlist = listOf("one", "two", "threethrethree")
+
 
     Scaffold(
         modifier = Modifier
@@ -156,6 +164,41 @@ fun Registration (
                     verticalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
                     MikoReadOnlyTextField(
+                        value = companyTypeRO
+                    )
+                    MikoDropDownMenu(
+                        ddmlist = ddmlist,
+                        openMenu = openMenuType,
+                        pick = companyType,
+                        textButton =
+                        (if (companyType.value.isNotEmpty()){
+                            companyType.value
+                        } else{
+                            "выбрать тип"
+                        }).toString()
+                    )
+                }
+
+                Column(
+                    modifier = Modifier
+                        .padding(vertical = 20.dp),
+                    verticalArrangement = Arrangement.spacedBy(10.dp)
+                ) {
+                    MikoReadOnlyTextField(
+                        value = innRO
+                    )
+                    MikoTextField(
+                        value = inn,
+                        placeHol = "ввести инн"
+                    )
+                }
+
+                Column(
+                    modifier = Modifier
+                        .padding(vertical = 20.dp),
+                    verticalArrangement = Arrangement.spacedBy(10.dp)
+                ) {
+                    MikoReadOnlyTextField(
                         value = emailRO
                     )
                     MikoTextField(
@@ -207,6 +250,8 @@ fun Registration (
                         placeHol = "ввести условия компании"
                     )
                 }
+
+
             }
 
             MikoButton(
