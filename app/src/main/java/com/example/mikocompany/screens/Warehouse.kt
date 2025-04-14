@@ -26,6 +26,7 @@ import com.example.mikocompany.details.MikoBackCard
 import com.example.mikocompany.details.MikoButton
 import com.example.mikocompany.details.MikoDialog
 import com.example.mikocompany.details.MikoDropDownMenu
+import com.example.mikocompany.details.MikoNavigation
 import com.example.mikocompany.details.MikoReadOnlyTextField
 import com.example.mikocompany.details.MikoSecondaryText
 import com.example.mikocompany.details.MikoText
@@ -47,20 +48,16 @@ fun Warehouse(
     val warehouseNameRO = remember { mutableStateOf(TextFieldValue("название склада")) }
     val warehouseName = remember { mutableStateOf(TextFieldValue("")) }
 
-
     val ddmlist = listOf("oneoneoneoneoneoneoneoneoneoneoneoneoneoneoneoneoneoneoneone")
     val category_count_summ = remember { mutableStateOf(0) }
     val acceptance_count_summ = remember { mutableStateOf(0) }
     val order_count_summ = remember { mutableStateOf(0) }
 
-    Scaffold(
-        modifier = Modifier
-            .fillMaxSize(),
-        containerColor = backgroundP
-    ) { innerPadding ->
+    MikoNavigation(
+        navController
+    ) {
         Column(
             modifier = Modifier
-                .padding(innerPadding)
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -82,12 +79,12 @@ fun Warehouse(
                 ) {
                     MikoDropDownMenu(
                         textButton =
-                            if (pick.value.isNotEmpty()){
-                                pick.value
-                            }
-                            else {
-                                "выбрать склад"
-                            },
+                        if (pick.value.isNotEmpty()){
+                            pick.value
+                        }
+                        else {
+                            "выбрать склад"
+                        },
                         openMenu = openMenu,
                         ddmlist = ddmlist,
                         pick = pick

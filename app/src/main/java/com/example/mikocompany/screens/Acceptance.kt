@@ -25,9 +25,9 @@ import com.example.mikocompany.dcl.AcceptanceClass
 import com.example.mikocompany.details.MikoBackCard
 import com.example.mikocompany.details.MikoButton
 import com.example.mikocompany.details.MikoDropDownMenu
+import com.example.mikocompany.details.MikoNavigation
 import com.example.mikocompany.details.MikoText
 import com.example.mikocompany.details.MikoTitle
-import com.example.mikocompany.ui.theme.backgroundP
 import com.example.mikocompany.ui.theme.backgroundS
 import com.example.mikocompany.ui.theme.lightContainerS
 
@@ -41,14 +41,11 @@ fun Acceptance(
     val openMenu = remember { mutableStateOf(false) }
     val dateAcceptance = remember { mutableStateOf("hui") }
 
-    Scaffold(
-        modifier = Modifier
-            .fillMaxSize(),
-        containerColor = backgroundP
-    ) { innerPadding ->
+    MikoNavigation(
+        navController
+    ) {
         Column(
             modifier = Modifier
-                .padding(innerPadding)
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(20.dp)
@@ -133,7 +130,7 @@ fun Acceptance(
                 if (item != null){
                     acceptanceColumn(navController, item)
                 }
-                }
+            }
             }
         }
     }

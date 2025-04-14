@@ -24,7 +24,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
 import com.example.mikocompany.dcl.NavRouts.Companion.routsAll
+import com.example.mikocompany.ui.theme.backgroundP
 import com.example.mikocompany.ui.theme.backgroundS
+import com.example.mikocompany.ui.theme.lightContainerP
 import com.example.mikocompany.ui.theme.lightContainerS
 import com.example.mikocompany.ui.theme.primary
 import com.example.mikocompany.ui.theme.secondary
@@ -49,7 +51,6 @@ fun MikoNavigation(
                 Column(
                     modifier = Modifier
                         .fillMaxHeight()
-                        .verticalScroll(rememberScrollState())
                 ) {
                     for (i in routsAll.indices){
                         MikoButton(
@@ -72,14 +73,14 @@ fun MikoNavigation(
     ) {
         Scaffold(
             modifier = Modifier
-                .fillMaxHeight(),
-            containerColor = Color.Transparent,
+                .fillMaxSize(),
+            containerColor = backgroundS,
             bottomBar = {
                 BottomAppBar(
                     actions = {
                         Row(
                             modifier = Modifier
-                                .fillMaxSize(),
+                                .fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceAround
                         ) {
                             MikoButton(
@@ -101,7 +102,7 @@ fun MikoNavigation(
                                 text = "склад",
                                 color =
                                     if (currentRoute == "warehouse"){
-                                        primary
+                                        backgroundS
                                     }
                                     else{
                                         secondary
@@ -115,7 +116,7 @@ fun MikoNavigation(
                                 text = "профиль",
                                 color =
                                 if (currentRoute == "profile"){
-                                    primary
+                                    backgroundS
                                 }
                                 else{
                                     secondary
@@ -125,7 +126,7 @@ fun MikoNavigation(
                     },
                     modifier = Modifier
                         .fillMaxWidth(),
-                    containerColor = backgroundS
+                    containerColor = lightContainerS
                 )
             }
         ){ innerPadding ->
@@ -133,9 +134,8 @@ fun MikoNavigation(
                 modifier = Modifier
                     .padding(innerPadding)
             ) {
-                content
+                content()
             }
         }
     }
-
 }
