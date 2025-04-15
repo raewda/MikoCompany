@@ -40,6 +40,7 @@ import com.example.mikocompany.ui.theme.backgroundP
 import com.example.mikocompany.ui.theme.backgroundS
 import com.example.mikocompany.ui.theme.containerP
 import com.example.mikocompany.ui.theme.containerS
+import com.example.mikocompany.ui.theme.lightContainerS
 import com.example.mikocompany.ui.theme.primary
 import com.example.mikocompany.ui.theme.secondary
 
@@ -87,6 +88,19 @@ fun Registration (
                 .padding(innerPadding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalAlignment = Alignment.Start
+            ) {
+                MikoTextButton(
+                    onClick = {
+                        navController.navigateUp()
+                    },
+                    "назад",
+                    color = lightContainerS
+                )
+            }
 
             MikoButton(
                 onClick = {

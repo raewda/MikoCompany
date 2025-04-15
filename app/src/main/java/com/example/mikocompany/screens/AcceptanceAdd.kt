@@ -121,7 +121,7 @@ fun AcceptanceAdd(
 
             Column(
                 modifier = Modifier
-                    .fillMaxWidth(0.8F),
+                    .fillMaxWidth(0.9F),
                 verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
 
@@ -230,7 +230,7 @@ fun AcceptanceAdd(
                                 ) {
                                     MikoDigitalTextField(
                                         count,
-                                        "0",
+                                        "0 шт",
                                         keyType = KeyboardType.Number
                                     )
                                 }
@@ -241,7 +241,7 @@ fun AcceptanceAdd(
                                 ) {
                                     MikoDigitalTextField(
                                         price,
-                                        "0",
+                                        "0 ₽",
                                         keyType = KeyboardType.Number
                                     )
                                 }
