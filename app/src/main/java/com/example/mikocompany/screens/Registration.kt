@@ -261,6 +261,8 @@ fun Registration (
                         && password.value.text.isNotEmpty()
                         && name.value.text.isNotEmpty()
                         && email.value.text.isNotEmpty()
+                        && inn.value.text.isNotEmpty()
+                        && companyType.value.isNotEmpty()
                         && phone.value.text.isNotEmpty()
                         && description.value.text.isNotEmpty()
                         && conditions.value.text.isNotEmpty()

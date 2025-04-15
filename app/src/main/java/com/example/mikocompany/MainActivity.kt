@@ -14,6 +14,8 @@ import com.example.mikocompany.screens.AcceptanceAdd
 import com.example.mikocompany.screens.ApplicationInfo
 import com.example.mikocompany.screens.Authorization
 import com.example.mikocompany.screens.Category
+import com.example.mikocompany.screens.CategoryAdd
+import com.example.mikocompany.screens.CategoryInfo
 import com.example.mikocompany.screens.Employees
 import com.example.mikocompany.screens.Filling
 import com.example.mikocompany.screens.Offer
@@ -47,6 +49,8 @@ class MainActivity : ComponentActivity() {
                 val filling = remember{ mutableStateOf(false) }
                 val acceptanceAdd = remember{ mutableStateOf(false) }
                 val employees = remember{ mutableStateOf(false) }
+                val categoryAdd = remember { mutableStateOf(false) }
+                val categoryInfo = remember { mutableStateOf(false) }
 
                 NavHost(
                     navController = navController,
@@ -134,6 +138,18 @@ class MainActivity : ComponentActivity() {
                         Employees(
                             navController,
                             employees = employees
+                        )
+                    }
+                    composable("categoryAdd") {
+                        CategoryAdd(
+                            navController,
+                            categoryAdd = categoryAdd
+                        )
+                    }
+                    composable("categoryInfo") {
+                        CategoryInfo(
+                            navController,
+                            categoryInfo = categoryInfo
                         )
                     }
                 }
