@@ -226,7 +226,7 @@ fun CategoryAdd(
             }
             MikoButton(
                 onClick = {
-
+                    navController.navigateUp()
                 },
                 text = "добавить категорию",
                 color = backgroundS,
