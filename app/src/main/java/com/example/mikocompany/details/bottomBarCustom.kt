@@ -74,7 +74,7 @@ fun MikoNavigation(
         Scaffold(
             modifier = Modifier
                 .fillMaxSize(),
-            containerColor = backgroundS,
+            containerColor = backgroundP,
             bottomBar = {
                 BottomAppBar(
                     actions = {
