@@ -11,6 +11,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -32,6 +33,7 @@ import com.example.mikocompany.details.MikoBackCard
 import com.example.mikocompany.details.MikoButton
 import com.example.mikocompany.details.MikoDialog
 import com.example.mikocompany.details.MikoDigitalTextField
+import com.example.mikocompany.details.MikoInfoDialog
 import com.example.mikocompany.details.MikoLargeTextField
 import com.example.mikocompany.details.MikoSecondaryText
 import com.example.mikocompany.details.MikoText
@@ -47,12 +49,14 @@ fun CategoryInfo(
     navController : NavHostController,
     categoryInfo : MutableState<Boolean>
 ){
+    val warehouse = remember { mutableStateOf(TextFieldValue("склад 1")) }
     val name = remember { mutableStateOf(TextFieldValue("jopa")) }
-    val description = remember { mutableStateOf(TextFieldValue("")) }
-    val price = remember { mutableStateOf(TextFieldValue("")) }
-    val count = remember { mutableStateOf(TextFieldValue("")) }
-    val supplier = remember { mutableStateOf(TextFieldValue("")) }
-    val openDialog = remember { mutableStateOf(false) }
+    val description = remember { mutableStateOf(TextFieldValue("opisanie")) }
+    val price = remember { mutableStateOf(TextFieldValue("100")) }
+    val count = remember { mutableStateOf(TextFieldValue("543")) }
+    val supplier = remember { mutableStateOf(TextFieldValue("hui")) }
+    val openEditDialog = remember { mutableStateOf(false) }
+    val openDeleteDialog = remember { mutableStateOf(false) }
 
     Scaffold(
         modifier = Modifier
@@ -95,16 +99,30 @@ fun CategoryInfo(
                             .fillMaxWidth(),
                         horizontalAlignment = Alignment.End
                     ) {
-                        IconButton(
-                            onClick = {
-                                openDialog.value = true
+                        Row {
+                            IconButton(
+                                onClick = {
+                                    openDeleteDialog.value = true
+                                }
+                            ) {
+                                Icon(
+                                    Icons.Default.Delete,
+                                    contentDescription = "delete",
+                                    tint = backgroundS
+                                    )
                             }
-                        ) {
-                            Icon(
-                                Icons.Default.Edit,
-                                contentDescription = "edit",
-                                tint = backgroundS
-                            )
+
+                            IconButton(
+                                onClick = {
+                                    openEditDialog.value = true
+                                }
+                            ) {
+                                Icon(
+                                    Icons.Default.Edit,
+                                    contentDescription = "edit",
+                                    tint = backgroundS
+                                )
+                            }
                         }
                     }
                 }
@@ -115,7 +133,7 @@ fun CategoryInfo(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     MikoSecondaryText(
-                        "название категории"
+                        name.value.text
                     )
                 }
             }
@@ -134,7 +152,7 @@ fun CategoryInfo(
                     color = lightContainerS
                 ) {
                     MikoText(
-                        "склад №1"
+                        warehouse.value.text
                     )
                 }
             }
@@ -153,7 +171,7 @@ fun CategoryInfo(
                     color = lightContainerS
                 ) {
                     MikoText(
-                        "описание"
+                        description.value.text
                     )
                 }
             }
@@ -172,7 +190,7 @@ fun CategoryInfo(
                         color = lightContainerS
                     ) {
                         MikoText(
-                            "100 ₽"
+                            value = price.value.text + " ₽"
                         )
                     }
                 }
@@ -186,7 +204,7 @@ fun CategoryInfo(
                         color = lightContainerS
                     ) {
                         MikoText(
-                            "100 шт"
+                            value = count.value.text + " шт"
                         )
                     }
                 }
@@ -208,18 +226,18 @@ fun CategoryInfo(
                 ) {
                     MikoText(
                         value =
-                        (if (supplier.value.text.isNotEmpty()){
-                            supplier.value
+                        if (supplier.value.text.isNotEmpty()){
+                            supplier.value.text
                         } else{
                             "нет информации"
-                        }).toString()
+                        }
                     )
                 }
             }
 
-            if (openDialog.value){
+            if (openEditDialog.value){
                 MikoDialog(
-                    openDialog,
+                    openEditDialog,
                     400,
                     650,
                     lightContainerS
@@ -301,9 +319,41 @@ fun CategoryInfo(
 
                         MikoButton(
                             onClick = {
-                                openDialog.value = false
+                                openEditDialog.value = false
                             },
                             text = "сохранить",
+                            color = backgroundS
+                        )
+                    }
+                }
+            }
+
+            if (openDeleteDialog.value){
+                MikoDialog(
+                    openEditDialog,
+                    400,
+                    270,
+                    lightContainerS
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .verticalScroll(rememberScrollState()),
+                        verticalArrangement = Arrangement.spacedBy(20.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        MikoSecondaryText(
+                            "удаление категории"
+                        )
+
+                        MikoText(
+                            value = "удалить " + name.value.text + "?"
+                        )
+                        MikoButton(
+                            onClick = {
+                                openDeleteDialog.value = false
+                            },
+                            text = "удалить",
                             color = backgroundS
                         )
                     }

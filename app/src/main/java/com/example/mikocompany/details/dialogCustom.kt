@@ -30,7 +30,7 @@ fun MikoInfoDialog(
     width : Int,
     height : Int,
     color: Color,
-    textColor: Color
+    textColor: Color,
 //    vmstate : State<String>
 ){
     Dialog(
@@ -45,7 +45,7 @@ fun MikoInfoDialog(
             colors = CardDefaults.cardColors(color)
         ) {
             Text(
-                text = "сюда стейт",
+                text = "vmstate",
                 modifier = Modifier
                     .padding(horizontal = 15.dp),
                 color = textColor,
